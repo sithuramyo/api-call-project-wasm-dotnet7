@@ -1,36 +1,12 @@
 ﻿@page "/weather"
 <PageTitle> Weather App </PageTitle>
-<h1>Weather App</h1>
-<MudContainer>
-    <div class="header">
+<h3>Weather App</h3>
+<div class="container">
         <div class="search-box">
             <MudTextField T="string" Label="Enter your location"
-                          HelperText="Some helping text" HelperTextOnFocus="true" Variant="Variant.Outlined" />
-            <MudButton Class="fa-solid fa-magnifying-glass" Id="searchBtn">
+                          HelperText="Some helping text" HelperTextOnFocus="true" Variant="Variant.Text" />
+            <MudButton Class="fa-solid fa-magnifying-glass">
                 <MudIcon>@Icons.Material.Filled.LocationSearching</MudIcon>
             </MudButton>
         </div>
-    </div>
-    <div class="location-not-found">
-        <h1>Sorry, Location not found!!!</h1>
-        <MudImage Source="/assets/404.png" Alt="404 Error" />
-    </div>
-    <div class="weather-body">
-        <MudImage Source="/assets/cloud.png" Alt="Weather Image" Class="weather-img" />
-
-        <div class="weather-box">
-            <p class="temperature">0 <sup>°C</sup></p>
-            <p class="description">light rain</p>
-        </div>
-
-        <div class="weather-details">
-            <div class="humidity">
-                <MudIcon>@Icons.Material.Filled.WaterDrop</MudIcon>
-            </div>
-
-            <div class="wind">
-                <MudIcon>@Icons.Material.Filled.Air</MudIcon>
-            </div>
-        </div>
-    </div>
-</MudContainer>
+</div>

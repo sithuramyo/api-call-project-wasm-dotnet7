@@ -1,7 +1,11 @@
 ﻿@page "/flightrador"
+<PageTitle> Flight Rador </PageTitle>
 <h3>FlightRador</h3>
-
-@if (flights != null)
+@if (isLoading)
+{
+    <div>Loading.......</div>
+}
+else
 {
     int i = 0;
     <table class="table">
@@ -35,5 +39,5 @@
             }
         </tbody>
     </table>
-    <MudPagination SelectedChanged="PageChanged" BoundaryCount="2" MiddleCount="5" Count="pageCount" Class="mt-4" />
+    <MudPagination  SelectedChanged="PageChanged" BoundaryCount="2" MiddleCount="5" Count="pageCount" Class="mt-4" />
 }

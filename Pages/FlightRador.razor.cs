@@ -10,12 +10,14 @@ namespace WeatherApp.Pages
         private int pageNo = 1;
         private int pageSize = 10;
         private int pageCount = 0;
-
+        private bool isLoading = false;
         private ApiResponse flights = new ApiResponse();
         private List<Row> flightsModel = new List<Row>();
         protected override async Task OnInitializedAsync()
         {
+           
             await List(pageNo, pageSize);
+            
         }
         private async Task PageChanged(int i)
         {
@@ -24,6 +26,7 @@ namespace WeatherApp.Pages
         }
         private async Task List(int pageNo = 1, int pageSize = 10)
         {
+            isLoading = true;
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {
@@ -49,7 +52,8 @@ namespace WeatherApp.Pages
                 }
                 int totalCount = flights.Rows.Count;
                 pageCount = (totalCount + pageSize - 1) / pageSize;
-                StateHasChanged();
+                isLoading = false;
+               // StateHasChanged();
             }
         }
     }
