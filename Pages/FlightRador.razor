@@ -1,0 +1,39 @@
+﻿@page "/flightrador"
+<h3>FlightRador</h3>
+
+@if (flights != null)
+{
+    int i = 0;
+    <table class="table">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Description</th>
+                <th>Flight Names</th>
+                <th>Flight Codes</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in flightsModel)
+            {
+                <tr>
+                    <td>@(((pageNo - 1) * pageSize) + (++i))</td>
+                    <td>@row.Description</td>
+                    <td>
+                        @foreach (var model in row.Models)
+                        {
+                            <div>@model.Name</div>
+                        }
+                    </td>
+                    <td>
+                        @foreach (var model in row.Models)
+                        {
+                            <div>@model.Code</div>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <MudPagination SelectedChanged="PageChanged" BoundaryCount="2" MiddleCount="5" Count="pageCount" Class="mt-4" />
+}
