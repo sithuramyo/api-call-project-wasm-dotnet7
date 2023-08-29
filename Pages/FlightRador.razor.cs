@@ -13,17 +13,18 @@ namespace WeatherApp.Pages
         private bool isLoading = false;
         private ApiResponse flights = new ApiResponse();
         private List<Row> flightsModel = new List<Row>();
+
         protected override async Task OnInitializedAsync()
         {
-           
             await List(pageNo, pageSize);
-            
         }
+
         private async Task PageChanged(int i)
         {
             pageNo = i;
             await List(pageNo, pageSize);
         }
+
         private async Task List(int pageNo = 1, int pageSize = 10)
         {
             isLoading = true;
@@ -53,8 +54,8 @@ namespace WeatherApp.Pages
                 int totalCount = flights.Rows.Count;
                 pageCount = (totalCount + pageSize - 1) / pageSize;
                 isLoading = false;
-               // StateHasChanged();
             }
+            StateHasChanged();
         }
     }
 }
