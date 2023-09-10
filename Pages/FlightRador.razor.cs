@@ -46,10 +46,11 @@ namespace WeatherApp.Pages
                 flights = JsonConvert.DeserializeObject<ApiResponse>(body);
                 if (flights != null && flights.Rows.Count > 0)
                 {
-                    flightsModel = flights.Rows
-                        .Skip((pageNo - 1) * pageSize)
-                        .Take(pageSize)
-                        .ToList();
+                    //flightsModel = flights.Rows
+                    //    .Skip((pageNo - 1) * pageSize)
+                    //    .Take(pageSize)
+                    //    .ToList();
+                    flightsModel = flights.Rows.Take(((pageNo - 1) * pageSize)..(pageSize*pageNo)).ToList();
                 }
                 int totalCount = flights.Rows.Count;
                 pageCount = (totalCount + pageSize - 1) / pageSize;
