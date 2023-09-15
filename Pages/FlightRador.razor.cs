@@ -16,6 +16,7 @@ namespace WeatherApp.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            flights = await GetFlightListAsync();
             await List(pageNo, pageSize);
         }
 
@@ -28,6 +29,19 @@ namespace WeatherApp.Pages
         private async Task List(int pageNo = 1, int pageSize = 10)
         {
             isLoading = true;
+            if (flights != null && flights.Rows.Count > 0)
+            {
+                flightsModel = flights.Rows.Take(((pageNo - 1) * pageSize)..(pageSize * pageNo)).ToList();
+            }
+            int totalCount = flights.Rows.Count;
+            pageCount = (totalCount + pageSize - 1) / pageSize;
+            isLoading = false;
+            StateHasChanged();
+        }
+        private async Task<ApiResponse> GetFlightListAsync()
+        {
+            isLoading = true;
+            ApiResponse flightModel = new ApiResponse();
             var client = new HttpClient();
             var request = new HttpRequestMessage
             {
@@ -43,20 +57,11 @@ namespace WeatherApp.Pages
             {
                 response.EnsureSuccessStatusCode();
                 var body = await response.Content.ReadAsStringAsync();
-                flights = JsonConvert.DeserializeObject<ApiResponse>(body);
-                if (flights != null && flights.Rows.Count > 0)
-                {
-                    //flightsModel = flights.Rows
-                    //    .Skip((pageNo - 1) * pageSize)
-                    //    .Take(pageSize)
-                    //    .ToList();
-                    flightsModel = flights.Rows.Take(((pageNo - 1) * pageSize)..(pageSize*pageNo)).ToList();
-                }
-                int totalCount = flights.Rows.Count;
-                pageCount = (totalCount + pageSize - 1) / pageSize;
-                isLoading = false;
+                flightModel = JsonConvert.DeserializeObject<ApiResponse>(body);
+
             }
-            StateHasChanged();
+            isLoading = false;
+            return flightModel;
         }
     }
 }
