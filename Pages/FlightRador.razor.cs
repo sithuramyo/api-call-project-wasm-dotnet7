@@ -26,7 +26,7 @@ namespace WeatherApp.Pages
             await List(pageNo, pageSize);
         }
 
-        private async Task List(int pageNo = 1, int pageSize = 10)
+        private Task List(int pageNo = 1, int pageSize = 10)
         {
             isLoading = true;
             if (flights != null && flights.Rows.Count > 0)
@@ -37,7 +37,9 @@ namespace WeatherApp.Pages
             pageCount = (totalCount + pageSize - 1) / pageSize;
             isLoading = false;
             StateHasChanged();
+            return Task.CompletedTask;
         }
+
         private async Task<ApiResponse> GetFlightListAsync()
         {
             isLoading = true;
